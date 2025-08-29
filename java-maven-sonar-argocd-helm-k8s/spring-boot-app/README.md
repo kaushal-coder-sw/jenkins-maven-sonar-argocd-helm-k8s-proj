@@ -68,20 +68,20 @@ cd /opt/sonarqube/bin/linux-x86-64
 ```
 #### Configure a minikube locally
 
-# 1️⃣ Update system
+# Update system
 sudo apt update -y
 sudo apt upgrade -y
 
-# 2️⃣ Install dependencies
+# Install dependencies
 sudo apt install -y curl wget apt-transport-https virtualbox virtualbox-ext-pack
 
-# 3️⃣ Download Minikube binary
+# Download Minikube binary
 curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
 
-# 4️⃣ Install binary
+# Install binary
 sudo install minikube-linux-amd64 /usr/local/bin/minikube
 
-# 5️⃣ Verify installation
+# Verify installation
 minikube version
 
 minikube start --memory=4098 --driver=hyperkit
