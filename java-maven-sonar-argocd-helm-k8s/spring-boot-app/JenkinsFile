@@ -57,18 +57,16 @@ pipeline {
             GIT_USER_NAME = "kaushal-coder-sw"
         }
         steps {
+            checkout scm
             withCredentials([string(credentialsId: 'github', variable: 'GITHUB_TOKEN')]) {
-                dir("${WORKSPACE}") {
-                  sh '''
-                    git config user.email "kaushaljujgar1@gmail.com"
-                    git config user.name "Kaushal Jujgar"
-
-                    sed -i "s/replaceImageTag/${BUILD_NUMBER}/g" java-maven-sonar-argocd-helm-k8s/spring-boot-app-manifests/deployment.yml
-                    git add java-maven-sonar-argocd-helm-k8s/spring-boot-app-manifests/deployment.yml
-                    git commit -m "Update deployment image to version ${BUILD_NUMBER}" || echo "No changes to commit"
-                    git push https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME}.git HEAD:main
-                  '''
-              }
+                sh '''
+                git config user.email "kaushaljujgar1@gmail.com"
+                git config user.name "Kaushal Jujgar"
+                sed -i "s/replaceImageTag/${BUILD_NUMBER}/g" java-maven-sonar-argocd-helm-k8s/spring-boot-app-manifests/deployment.yml
+                git add java-maven-sonar-argocd-helm-k8s/spring-boot-app-manifests/deployment.yml
+                git commit -m "Update deployment image to version ${BUILD_NUMBER}" || echo "No changes to commit"
+                git push https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME}.git HEAD:main
+              '''
             }
         }
     }
