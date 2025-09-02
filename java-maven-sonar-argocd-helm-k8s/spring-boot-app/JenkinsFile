@@ -59,13 +59,25 @@ pipeline {
         steps {
             withCredentials([string(credentialsId: 'github', variable: 'GITHUB_TOKEN')]) {
                 sh '''
+                # Ensure we are in the workspace repo
+                cd ${WORKSPACE}
+
                 git config user.email "kaushaljujgar1@gmail.com"
                 git config user.name "Kaushal Jujgar"
+
+                # Make sure we’re on the main branch
+                git checkout main
+
+                # Update the deployment file with build number
                 sed -i "s/replaceImageTag/${BUILD_NUMBER}/g" java-maven-sonar-argocd-helm-k8s/spring-boot-app-manifests/deployment.yml
+
+                # Add and commit changes
                 git add java-maven-sonar-argocd-helm-k8s/spring-boot-app-manifests/deployment.yml
                 git commit -m "Update deployment image to version ${BUILD_NUMBER}" || echo "No changes to commit"
-                git push https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME}.git HEAD:main
-              '''
+
+                # Push using GitHub token
+                git push https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME}.git main
+            '''
             }
         }
     }
