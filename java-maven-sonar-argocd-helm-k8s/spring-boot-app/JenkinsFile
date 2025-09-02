@@ -57,16 +57,18 @@ pipeline {
             GIT_USER_NAME = "Kaushal"
         }
         steps {
-            withCredentials([string(credentialsId: 'github', variable: 'GITHUB_TOKEN')]) {
-                sh '''
-                    git config user.email "kaushaljujgar1@gmail.com"
-                    git config user.name "Kaushal"
-                    BUILD_NUMBER=${BUILD_NUMBER}
-                    sed -i "s/replaceImageTag/${BUILD_NUMBER}/g" java-maven-sonar-argocd-helm-k8s/spring-boot-app-manifests/deployment.yml
-                    git add java-maven-sonar-argocd-helm-k8s/spring-boot-app-manifests/deployment.yml
-                    git commit -m "Update deployment image to version ${BUILD_NUMBER}"
-                    git push https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:main
-                '''
+            dir('java-maven-sonar-argocd-helm-k8s-proj') {
+            withEnv(["PATH+GIT=${tool 'Default'}/bin"]) {
+                withCredentials([string(credentialsId: 'github-token', variable: 'GITHUB_TOKEN')]) {
+                    sh '''
+                        git config user.email "kaushaljujgar1@gmail.com"
+                        git config user.name "Kaushal Jujgar"
+                        # make your changes here
+                        git add .
+                        git commit -m "Update deployment file from Jenkins"
+                        git push https://${GITHUB_TOKEN}@github.com/kaushal-coder-sw/jenkins-maven-sonar-argocd-helm-k8s-proj.git
+                    '''
+                }
             }
         }
     }
