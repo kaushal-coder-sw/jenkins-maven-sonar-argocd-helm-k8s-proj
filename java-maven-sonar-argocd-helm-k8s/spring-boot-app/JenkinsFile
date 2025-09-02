@@ -52,25 +52,22 @@ pipeline {
       }
     }
     stage('Update Deployment File') {
-        environment {
-            GIT_REPO_NAME = "jenkins-maven-sonar-argocd-helm-k8s-proj"
-            GIT_USER_NAME = "Kaushal"
-        }
-        steps {
-            dir('java-maven-sonar-argocd-helm-k8s-proj') {
-            withEnv(["PATH+GIT=${tool 'Default'}/bin"]) {
-                withCredentials([string(credentialsId: 'github-token', variable: 'GITHUB_TOKEN')]) {
-                    sh '''
-                        git config user.email "kaushaljujgar1@gmail.com"
-                        git config user.name "Kaushal Jujgar"
-                        # make your changes here
-                        git add .
-                        git commit -m "Update deployment file from Jenkins"
-                        git push https://${GITHUB_TOKEN}@github.com/kaushal-coder-sw/jenkins-maven-sonar-argocd-helm-k8s-proj.git
-                    '''
-                }
-            }
-        }
+      steps {
+          dir('java-maven-sonar-argocd-helm-k8s-proj') {
+              withEnv(["PATH+GIT=${tool 'Default'}/bin"]) {
+                  withCredentials([string(credentialsId: 'github-token', variable: 'GITHUB_TOKEN')]) {
+                      sh '''
+                          git config user.email "kaushaljujgar1@gmail.com"
+                          git config user.name "Kaushal Jujgar"
+                          # make your changes here
+                          git add .
+                          git commit -m "Update deployment file from Jenkins"
+                          git push https://${GITHUB_TOKEN}@github.com/kaushal-coder-sw/jenkins-maven-sonar-argocd-helm-k8s-proj.git
+                      '''
+                  }
+              }
+          }
+      }
     }
   }
 }
