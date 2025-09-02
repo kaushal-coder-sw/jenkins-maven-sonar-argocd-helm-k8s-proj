@@ -51,7 +51,7 @@ pipeline {
         }
       }
     }
-    stage('Checkout') {
+    stage('Re Checkout') {
       steps {
         sh 'echo passed'
         //git branch: 'main', url: 'https://github.com/kaushal-coder-sw/jenkins-maven-sonar-argocd-helm-k8s-proj.git'
