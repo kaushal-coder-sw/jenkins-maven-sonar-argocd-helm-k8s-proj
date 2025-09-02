@@ -59,7 +59,7 @@ pipeline {
         }
         steps {
             withCredentials([string(credentialsId: 'github', variable: 'GITHUB_TOKEN')]) {
-                dir('java-maven-sonar-argocd-helm-k8s') {   // go inside repo
+                dir('java-maven-sonar-argocd-helm-k8s-proj/java-maven-sonar-argocd-helm-k8s') {   // go inside repo
                  sh '''
                   # Configure Git identity
                   git config user.email "${GIT_USER_EMAIL}"
