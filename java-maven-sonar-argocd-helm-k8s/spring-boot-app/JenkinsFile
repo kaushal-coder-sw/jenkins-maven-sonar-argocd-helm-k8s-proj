@@ -51,12 +51,6 @@ pipeline {
         }
       }
     }
-    stage('Re Checkout') {
-      steps {
-        sh 'echo passed'
-        //git branch: 'main', url: 'https://github.com/kaushal-coder-sw/jenkins-maven-sonar-argocd-helm-k8s-proj.git'
-      }
-    }
     stage('Update Deployment File') {
       environment {
             GIT_REPO_NAME = "jenkins-maven-sonar-argocd-helm-k8s-proj"
