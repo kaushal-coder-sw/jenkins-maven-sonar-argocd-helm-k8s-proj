@@ -54,7 +54,7 @@ pipeline {
     stage('Update Deployment File') {
       environment {
             GIT_REPO_NAME = "jenkins-maven-sonar-argocd-helm-k8s-proj"
-            GIT_USER_NAME = "Kaushal"
+            GIT_USER_NAME = "kaushal-coder-sw"
         }
         steps {
             withCredentials([string(credentialsId: 'github', variable: 'GITHUB_TOKEN')]) {
@@ -64,7 +64,7 @@ pipeline {
                     git clone https://github.com/kaushal-coder-sw/jenkins-maven-sonar-argocd-helm-k8s-proj.git
                     cd jenkins-maven-sonar-argocd-helm-k8s-proj
                     git config user.email "kaushaljujgar1@gmail.com"
-                    git config user.name "Kaushal"
+                    git config user.name "kaushal-coder-sw"
                     BUILD_NUMBER=${BUILD_NUMBER}
                     sed -i "s/replaceImageTag/${BUILD_NUMBER}/g" java-maven-sonar-argocd-helm-k8s/spring-boot-app-manifests/deployment.yml
                     git add java-maven-sonar-argocd-helm-k8s/spring-boot-app-manifests/deployment.yml
