@@ -59,6 +59,7 @@ pipeline {
         steps {
             withCredentials([string(credentialsId: 'github', variable: 'GITHUB_TOKEN')]) {
                 sh '''
+                    rm -rf jenkins-maven-sonar-argocd-helm-k8s-proj
                     git init
                     git clone https://github.com/kaushal-coder-sw/jenkins-maven-sonar-argocd-helm-k8s-proj.git
                     cd jenkins-maven-sonar-argocd-helm-k8s-proj
