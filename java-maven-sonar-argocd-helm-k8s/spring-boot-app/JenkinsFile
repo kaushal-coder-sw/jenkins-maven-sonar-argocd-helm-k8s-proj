@@ -61,6 +61,7 @@ pipeline {
                 sh '''
                     git init
                     git clone https://github.com/kaushal-coder-sw/jenkins-maven-sonar-argocd-helm-k8s-proj.git
+                    cd jenkins-maven-sonar-argocd-helm-k8s-proj
                     git config user.email "kaushaljujgar1@gmail.com"
                     git config user.name "Kaushal"
                     BUILD_NUMBER=${BUILD_NUMBER}
